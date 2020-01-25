@@ -1,1 +1,109 @@
 
+# How to add review snippet (Google structured data) for your product page?
+
+# https://docs.ryviu.com/en/articles/3029816-how-to-add-review-snippet-google-structured-data-for-your-product-page
+#https://thimatichelp.freshdesk.com/support/solutions/articles/44001855812-how-to-setup-google-seo-snippet
+
+check here google error https://search.google.com/structured-data/testing-tool/
+
+not add many time like this  itemscope itemtype="http://schema.org/Product"
+
+
+live site 
+https://maskologist.com/products/lavender-youth-miracle-facial-hydrogel-sheet-mask
+https://nerdbugs.com/collections/shop/products/lung-organ-plush-toys
+https://flairchocolatier.com/collections/ruby-cacao/products/3-bar-ruby-cacao-bars-set
+
+--------------------------------------
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+         <meta itemprop="name" content="{{ product.title }}{% if product.variants.size > 1 and product.selected_variant %} - {{ current_variant.title }}{% endif %}">
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+     
+        {% include 'th-product-review-seo' %}
+        
+      
+        
+        *****************************************   add this code in snipet  ***********
+         
+ 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  
+  "gtin8":"{{ product.variants.first.barcode }}",
+      {%- for variant in product.variants -%}
+
+      "sku":{{ variant.sku }},
+  {%- endfor -%}
+{% assign product_schema = product.metafields.product_schema %}
+{% if product_schema['th_ratingCount'] > 0 %}
+ "aggregateRating": {
+ "@type": "AggregateRating",
+ "ratingValue": {{ product_schema['th_ratingValue'] }},
+ "reviewCount": {{ product_schema['th_ratingCount'] }}
+},
+{% endif %}
+
+
+
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {%- if product.featured_image -%}
+    {%- assign image_size = product.featured_image.width | append: 'x' -%}
+    "image": [
+      {{ product.featured_image.src | img_url: image_size | prepend: "https:" | json }}
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | json }},
+  {%- if current_variant.sku != blank -%}
+    "sku": {{ current_variant.sku | json }},
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": {{ product.vendor | json }}
+  },
+  
+    "review": {
+    "@type": "Review",
+
+    {% assign product_schema = product.metafields.product_schema %}
+{% if product_schema['th_ratingCount'] > 0 %}
+   "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "{{ product_schema['th_ratingValue'] }}",
+      "bestRating": "5"
+    },
+{% endif %}
+
+"author": {
+      "@type": "Person",
+      "name": "flairchocolatier"
+    }
+    
+  },
+  
+  
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+       
+          "sku":{{ variant.sku }},
+       
+        
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : {{ variant.price | divided_by: 100.00 | json }},
+        "priceCurrency" : {{ cart.currency.iso_code | json }},
+        "url" : {{ shop.url | append: variant.url | json }},
+        "itemcondition": "http://schema.org/NewCondition"
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+        
