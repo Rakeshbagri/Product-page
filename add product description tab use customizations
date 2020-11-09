@@ -1,0 +1,230 @@
+#https://ohitsnatural.com/products/clear-skin-trial-set
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<div class="product-discription-tabing">
+  <div class="container">
+    {% for block in section.blocks %}
+    {%- assign multi_collection =  block.settings.multi_collection -%}
+    {%- assign nested_link = block.img -%}
+    {% if product.handle contains multi_collection %}
+
+    <div class="for-deks">
+      <ul class="tabs">   
+        {% if block.settings.title1 != blank %}
+        <li>  <span class="tabs-cls active" data-id="#tab-1"> 
+          {{ block.settings.title1 }} </span></li>
+        {% endif %}
+
+        {% if block.settings.title2 != blank %}
+        <li>  <span class="tabs-cls" data-id="#tab-2"> 
+          {{ block.settings.title2 }} </span></li>
+        {% endif %}
+
+        {% if block.settings.title3 != blank %}
+        <li>  <span class="tabs-cls" data-id="#tab-3"> 
+          {{ block.settings.title3 }} </span></li>
+        {% endif %}
+
+        {% if block.settings.title4 != blank %}
+        <li>  <span class="tabs-cls" data-id="#tab-4"> 
+          {{ block.settings.title4 }} </span></li>
+        {% endif %}
+
+      </ul>
+
+      {% if block.settings.content1 != blank %}
+      <div id="tab-1" class="_tabs tabs-div show">
+        {{ block.settings.content1 }} 
+      </div>
+      {% endif %}
+
+      {% if block.settings.content2 != blank %}
+      <div id="tab-2" class="_tabs tabs-div">
+        {{ block.settings.content2 }} 
+      </div>
+      {% endif %}
+
+      {% if block.settings.content3 != blank %}
+      <div id="tab-3" class="_tabs tabs-div">
+        {{ block.settings.content3 }} 
+      </div>
+      {% endif %}
+
+      {% if block.settings.content4 != blank %}
+      <div id="tab-4" class="_tabs tabs-div">
+        {{ block.settings.content4 }} 
+      </div>
+      {% endif %}
+
+    </div>
+
+
+    <div class="accordionWrapper">
+      <div class="accordionItem open">
+        {% if block.settings.title1 != blank %}
+        <h2 class="accordionItemHeading"> {{ block.settings.title1 }} </h2>
+        {% endif %}
+        {% if block.settings.content1 != blank %}
+        <div class="accordionItemContent">
+          {{ block.settings.content1 }} 
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="accordionItem close">
+        {% if block.settings.title2 != blank %}
+        <h2 class="accordionItemHeading"> {{ block.settings.title2 }} </h2>
+        {% endif %}
+        {% if block.settings.content2 != blank %}
+        <div class="accordionItemContent">
+          {{ block.settings.content2 }} 
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="accordionItem close">
+        {% if block.settings.title3 != blank %}
+        <h2 class="accordionItemHeading"> {{ block.settings.title3 }} </h2>
+        {% endif %}
+        {% if block.settings.content3 != blank %}
+        <div class="accordionItemContent">
+          {{ block.settings.content3 }}       </div>
+        {% endif %}
+      </div>
+
+      <div class="accordionItem close">
+        {% if block.settings.title4 != blank %}
+        <h2 class="accordionItemHeading"> {{ block.settings.title4 }} </h2>
+        {% endif %}
+        {% if block.settings.content4 != blank %}
+        <div class="accordionItemContent">
+          {{ block.settings.content4 }}       </div>
+        {% endif %}
+      </div>
+
+
+    </div>
+
+
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+
+  $(document).on('click', '.tabs-cls',function(e){
+    $('.tabs-cls').removeClass('active');
+    $('.tabs-div').removeClass('show');
+    $(this).addClass('active');
+    $id = $(this).data('id');
+    $($id).addClass('show');
+  }); 
+</script>
+
+
+
+
+
+
+<script>
+
+  var accItem = document.getElementsByClassName('accordionItem');
+  var accHD = document.getElementsByClassName('accordionItemHeading');
+  for (i = 0; i < accHD.length; i++) {
+    accHD[i].addEventListener('click', toggleItem, false);
+  }
+  function toggleItem() {
+    var itemClass = this.parentNode.className;
+    for (i = 0; i < accItem.length; i++) {
+      accItem[i].className = 'accordionItem close';
+    }
+    if (itemClass == 'accordionItem close') {
+      this.parentNode.className = 'accordionItem open';
+    }
+  }
+
+</script>
+
+{% schema %}
+{
+"name": "Product Description",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Heading"
+}
+
+
+],
+"blocks": [
+{
+"type": "product",
+"name": "Products",
+"settings": [
+{
+"type": "product",
+"id": "multi_collection",
+"label": "Choose products"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Product title"
+},
+{
+"type": "text",
+"id": "title1",
+"label": "heading 1"
+},
+{
+"type": "richtext",
+"id": "content1",
+"label": "Content"
+},
+{
+"type": "text",
+"id": "title2",
+"label": "heading 2"
+},
+{
+"type": "richtext",
+"id": "content2",
+"label": "Content"
+},
+{
+"type": "text",
+"id": "title3",
+"label": "heading 3"
+},
+{
+"type": "richtext",
+"id": "content3",
+"label": "Content"
+},
+{
+"type": "text",
+"id": "title4",
+"label": "heading 4"
+},
+{
+"type": "richtext",
+"id": "content4",
+"label": "Content"
+}
+]
+}
+]
+
+
+
+
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
