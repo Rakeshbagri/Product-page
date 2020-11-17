@@ -1,0 +1,148 @@
+<div
+     data-section-id="{{ product.id }}"
+     data-subsection
+     data-section-type="collection-template"
+     class="index-section"> 
+  <div class="page-width">
+    <header class="section-header">
+      <h3 class="section-header__title">
+        {{ section.settings.product_recommendations_heading }}
+      </h3>
+    </header>
+  </div>
+
+  <div class="page-width page-width--flush-small">
+    <div class="grid grid--uniform aos-init aos-animate">
+
+
+      {% assign product1 =  product.metafields.c_f.bundle_1 %}
+      {% assign product2 =  product.metafields.c_f.bundle_2 %}
+      {% assign product3 =  product.metafields.c_f.bundle_3 %}
+      {% assign product4 =  product.metafields.c_f.bundle_4 %}
+
+
+
+      {% assign pd_upsale_list = product.metafields.c_f.bundle_1 | handle %} 
+
+      {% assign pd_upsale_list = all_products[pd_upsale_list] %}
+
+      {% if pd_upsale_list != blank %}
+
+      <div class="grid__item grid-product small--one-half medium-up--one-quarter aos-init aos-animate">
+        <div class="grid-product__content">
+
+          <a href="{{product.metafields.c_f.bundle_1 }}">
+            <div class="upsle_img">
+              <img src="{{ pd_upsale_list.images[0] | img_url: '400x400'}}"/>
+            </div>
+
+            <div class="grid-product__meta">
+              <div class="grid-product__title grid-product__title--heading">{{ pd_upsale_list.title}}</div>
+              <div class="sub_title">  {{ pd_upsale_list.metafields.c_f.video_url}}</div>
+
+              <div class="grid-product__price">{{ pd_upsale_list.price | money}}
+              </div></div>
+ 
+          </a>
+        </div>
+      </div>
+      {% endif %}
+
+        {% assign pd_upsale_list = product.metafields.c_f.bundle_2 | handle %} 
+        {% assign pd_upsale_list = all_products[pd_upsale_list] %}
+
+      {% if pd_upsale_list != blank %}
+
+      <div class="grid__item grid-product small--one-half medium-up--one-quarter aos-init aos-animate">
+        <div class="grid-product__content">
+
+          <a href="{{product.metafields.c_f.bundle_2 }}">
+            <div class="upsle_img">
+              <img src="{{ pd_upsale_list.images[0] | img_url: '400x400'}}"/>
+            </div>
+
+            <div class="grid-product__meta">
+              <div class="grid-product__title grid-product__title--heading">{{ pd_upsale_list.title}}</div>
+              <div class="sub_title">  {{ pd_upsale_list.metafields.c_f.video_url}}</div>
+
+              <div class="grid-product__price">{{ pd_upsale_list.price | money}}
+              </div></div>
+ 
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% assign pd_upsale_list = product.metafields.c_f.bundle_3 | handle %} 
+        {% assign pd_upsale_list = all_products[pd_upsale_list] %}
+
+      {% if pd_upsale_list != blank %}
+
+      <div class="grid__item grid-product small--one-half medium-up--one-quarter aos-init aos-animate">
+        <div class="grid-product__content">
+
+          <a href="{{product.metafields.c_f.bundle_3 }}">
+            <div class="upsle_img">
+              <img src="{{ pd_upsale_list.images[0] | img_url: '400x400'}}"/>
+            </div>
+
+            <div class="grid-product__meta">
+              <div class="grid-product__title grid-product__title--heading">{{ pd_upsale_list.title}}</div>
+              <div class="sub_title">  {{ pd_upsale_list.metafields.c_f.video_url}}</div>
+
+              <div class="grid-product__price">{{ pd_upsale_list.price | money}}
+              </div></div>
+ 
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% assign pd_upsale_list = product.metafields.c_f.bundle_4 | handle %} 
+        {% assign pd_upsale_list = all_products[pd_upsale_list] %}
+
+      {% if pd_upsale_list != blank %}
+
+      <div class="grid__item grid-product small--one-half medium-up--one-quarter aos-init aos-animate">
+        <div class="grid-product__content">
+
+          <a href="{{product.metafields.c_f.bundle_4 }}">
+            <div class="upsle_img">
+              <img src="{{ pd_upsale_list.images[0] | img_url: '400x400'}}"/>
+            </div>
+
+            <div class="grid-product__meta">
+              <div class="grid-product__title grid-product__title--heading">{{ pd_upsale_list.title}}</div>
+              <div class="sub_title">  {{ pd_upsale_list.metafields.c_f.video_url}}</div>
+
+              <div class="grid-product__price">{{ pd_upsale_list.price | money}}
+              </div></div>
+ 
+          </a>
+        </div>
+      </div>
+      {% endif %}
+
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+{% schema %}
+{
+"name": "Product recommendations",
+"settings": [
+
+{
+"type": "text",
+"id": "product_recommendations_heading",
+"label": "Heading",
+"default": "You may also like"
+}
+]
+}
+{% endschema %}
